@@ -8,6 +8,7 @@ import os
 #
 # By importing setuptools *before* numpy.distutils.core
 #  numpy will fork and use the (more modern) setuptools
+import setuptools
 import toml
 from numpy.distutils.core import Extension, setup
 
