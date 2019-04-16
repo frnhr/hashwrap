@@ -61,7 +61,7 @@ srcdir = os.path.join('hashwrap', 'src')
 srcf = ['fmamp_subs.f', 'fmech_subs.f', 'uncert_subs.f', 'util_subs.f',
         'pol_subs.f', 'vel_subs.f', 'station_subs.f', 'vel_subs2.f']
 src_list = [os.path.join(srcdir, src) for src in srcf]
-ext_args = {'sources': src_list}
+ext_args = {'sources': src_list, 'extra_link_args': ["-static-libgfortran"]}
 
 requirements = [
     'numpy',
@@ -72,7 +72,7 @@ requirements = [
 setup(name='hashwrap',
       packages=['hashwrap'],
       #packages=setuptools.find_packages(),
-      version='0.0.2',
+      version='0.0.3',
       description='Routines for running HASH algorithms for earthquake focal mechanism',
       author='Mike Hagerty',
       author_email='m.hagerty@isti.com',
