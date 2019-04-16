@@ -1,50 +1,41 @@
+dist: xenial   # required for Python >= 3.7
 language: python
+python:
+  - "3.6"
+  - "3.7"
+  - "nightly"
+  - "pypy"
+  - "pypy3"
 sudo: true
 before_install:
   - sudo apt-get install -y gfortran swig libfftw3-dev
 addons:
   apt:
     packages:
-    - rpm
-python:
-- 3.6
-- 3.7
-- nightly
-- pypy
-- pypy3
+      - rpm
 matrix:
   allow_failures:
-  - python: nightly
-  - python: pypy
-  - python: pypy3
+    - python: nightly
+    - python: pypy
+    - python: pypy3
 install:
-- bash ci/install.sh
+  - bash ci/install.sh
 script:
-- bash ci/script.sh
+  - bash ci/script.sh
 after_success:
-- bash ci/after_success.sh
+  - bash ci/after_success.sh
 before_deploy:
-- bash ci/before_deploy.sh
+  - bash ci/before_deploy.sh
 deploy:
-- provider: releases
-  overwrite: true
-  api_key:
-    secure: "Wl0Nb9bFeBm1gsHEy0Ec4cvg6KiQ2R5p8bEdn7fn0iC0ls5Clo45BaTsviPF7VktdoyeKihrO7fJQudry1lqtz6envmR/o5fm8iA54SGJS0HADShYvxrko9n0RZ69e+S8JXu/1zypENv/NXTLZaEbhujUxqF+7S1o3EmtZ9wWmI5m/Grz0rFr81bf4vADpccMUDjxnKQ/bMO4m+6GSGfuDGJ+gwHwCTc4Ud2V+CT4bc9cDztlrB8XdTaWxKqagSOKgWZDhgw9jRk15+w3ygb8VG0tg62JUbJEtm37EXtlnBmebXolHYLFgLAUkBd9LTsNSH2q0lZy0C/Wcvis8VnXg0J5QBMH7f8qWAjgMAQ9gW9q5RGF9sfB4jFvtpOYHCAmMVH/9pI+zFOo42P8cz5Wbh4wEOUblMtjKMnj028J5b9zJMPVDJhtm5o+Qs6jdkwzwbsAyAyv8Ig9WwYdtULv1NQ5MEYkkLuGP3YQEB+BxCC0DZM0uFk00C1dEoywoAzh8Gy/grin9ZSV5WUJbeevtJwi8qQliK3uh+6qt3inromWN15f6E/LIQLTohhJ5GM4v37+snYkudgwU/jBiMkeVQhmHpvlMFmIEs2N74H9CVi3Z6JbG0tQHf1XUBBkkag5b6xdxk212eJC6Z61oXS8FBDWQbtyoXm0527NAsx+j4="
-  file_glob: true
-  file:
-  - dist/*
-  skip_cleanup: true
-  on:
-    condition: "$TRAVIS_PYTHON_VERSION = 3.7"
-    tags: true
-- provider: pypi
-  user: microquake
-  password:
-    secure: "YmTcLJ7O1v/Qtcj2wKNNq33r5hHZY44agEjRLjpuGEsoikmQZ1da31Yl4Ex+WcQcyIp7sdEQRAjqd4EqF9Gg5kqQ9MG76qd0Fmase9Ub6t43iHxIyRloqQQEqI3DZuWsnxJIlyddMeV8gZC318pqgVpHaUO4Wk3gHpvjvq+nRFqDfCWaxfqoS7eiakpMAlkjgwBw9mlVwuf2Ory89/DwraGQphz7LAZpGuWusevw8h4E15o6Pc4i/PUcACHQs4kNlc+K1a6+z/k4Ejq6FatsTLquOkscuSt/2N7DmR+oGL2dBwyLnLRDVqghhoqr7/oUu/wYtRX9FwKgjfLNEfthpTDx9EhYQt/voZaGwa7Hmp50JS4txF/44y1mq+n357kFo06sbb+VL/92ceMGfwIJQmazm8Q9w+J88uqy8pMAvCBM1QKbIEbyxaPJPk4N8ZDXVniacdWp35QVVYCUPOaaofMRfRYJTwcAeiC9nceyaEXL/4HK+TY3Z5Uj5BG+W+BAmarCsoZIrXPCQdkuF1nGHXwdy4DQvqRdyxalvCC3ohHEp4XycjuDqXHJfd3UiM/ZYD+ETQbBQN5Jsvs3SfFWZW75zmZKef2gsUkCCIPduyQgGPVGUubJOXasDHzDVN/tqA8aULhZ3VYr9VqFRE2eCYAnI/wLc9IDC1MzosfO65c="
-  distributions: sdist bdist_wheel
-  on:
-    branch: master
-    condition: "$TRAVIS_PYTHON_VERSION = 3.7"
-    tags: true
+  - provider: pypi
+    user: microquake
+    password:
+      secure: "YmTcLJ7O1v/Qtcj2wKNNq33r5hHZY44agEjRLjpuGEsoikmQZ1da31Yl4Ex+WcQcyIp7sdEQRAjqd4EqF9Gg5kqQ9MG76qd0Fmase9Ub6t43iHxIyRloqQQEqI3DZuWsnxJIlyddMeV8gZC318pqgVpHaUO4Wk3gHpvjvq+nRFqDfCWaxfqoS7eiakpMAlkjgwBw9mlVwuf2Ory89/DwraGQphz7LAZpGuWusevw8h4E15o6Pc4i/PUcACHQs4kNlc+K1a6+z/k4Ejq6FatsTLquOkscuSt/2N7DmR+oGL2dBwyLnLRDVqghhoqr7/oUu/wYtRX9FwKgjfLNEfthpTDx9EhYQt/voZaGwa7Hmp50JS4txF/44y1mq+n357kFo06sbb+VL/92ceMGfwIJQmazm8Q9w+J88uqy8pMAvCBM1QKbIEbyxaPJPk4N8ZDXVniacdWp35QVVYCUPOaaofMRfRYJTwcAeiC9nceyaEXL/4HK+TY3Z5Uj5BG+W+BAmarCsoZIrXPCQdkuF1nGHXwdy4DQvqRdyxalvCC3ohHEp4XycjuDqXHJfd3UiM/ZYD+ETQbBQN5Jsvs3SfFWZW75zmZKef2gsUkCCIPduyQgGPVGUubJOXasDHzDVN/tqA8aULhZ3VYr9VqFRE2eCYAnI/wLc9IDC1MzosfO65c="
+    distributions: sdist bdist_wheel
+    on:
+      branch: master
+      condition: "$TRAVIS_PYTHON_VERSION = 3.7"
+      tags: true
+
 notifications:
   email: false
