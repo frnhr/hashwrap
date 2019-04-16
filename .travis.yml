@@ -5,17 +5,13 @@ addons:
     packages:
     - rpm
 python:
-- 2.7
-- 3.4
-- 3.5
 - 3.6
+- 3.7
 - nightly
 - pypy
 - pypy3
 matrix:
   allow_failures:
-  - python: 2.7
-  - python: 3.4
   - python: nightly
   - python: pypy
   - python: pypy3
