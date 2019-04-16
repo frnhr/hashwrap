@@ -10,7 +10,7 @@ SRC=    fmech_subs.f uncert_subs.f util_subs.f \
 hashpy: libhashpy.so
 
 libhashpy.so: Makefile $(SRC)
-	f2py -c -m libhashpy $(SRC)     
+	f2py --f90flags="-O2 -fPIC" -c -m libhashpy $(SRC)
 
 #.PHONY : install
 #install : libhashpy.so
