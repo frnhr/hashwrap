@@ -13,8 +13,8 @@ merge-check: &merge-check
 apt-run: &apt-install
   name: Install apt packages
   command: |
-    apt update
-    apt install -y gfortran swig libfftw3-dev
+    sudo apt update
+    sudo apt install -y gfortran swig libfftw3-dev
 tox-install: &tox-install
   name: Install Tox
   command: |
