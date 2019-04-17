@@ -13,8 +13,8 @@ merge-check: &merge-check
 apt-run: &apt-install
   name: Install apt packages
   command: |
-    sudo apt update
-    sudo apt install -y gfortran swig libfftw3-dev
+    apt update
+    apt install -y gfortran swig libfftw3-dev
 tox-install: &tox-install
   name: Install Tox
   command: |
@@ -52,10 +52,10 @@ jobs:
       - checkout
       - run: *skip-check
       - run: *merge-check
-      - run: *apt-install
+      # - run: *apt-install
       - run:
           name: Update pip
-          command: sudo /opt/python/cp37-cp37mu/bin/pip install -U pip
+          command: /opt/python/cp37-cp37mu/bin/pip install -U pip
       - run:
           name: install numpy
           command: /opt/python/cp37-cp37mu/bin/pip install --user numpy wheel twine | cat
