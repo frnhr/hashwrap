@@ -71,6 +71,10 @@ jobs:
           command: /opt/python/cp37-cp37m/bin/python setup.py bdist_wheel | cat
 
       - run:
+          name: bdist
+          command: auditwheel repair dist/*
+
+      - run:
           name: init .pypirc
           command: |
             echo -e "[pypi]" >> ~/.pypirc
