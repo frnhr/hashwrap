@@ -47,7 +47,7 @@ jobs:
 
   pip-install:
     docker:
-      - image: continuumio/miniconda3
+      - image: circleci/python:3.7
     steps:
       - checkout
       - run: *skip-check
@@ -58,13 +58,13 @@ jobs:
           command: pip install -U pip
       - run:
           name: install numpy
-          command: pip install numpy
+          command: pip install numpy wheel
       - run:
           name: install dependencies
           command: pip install toml obspy
       - run:
-          name: Install SunPy
-          command: pip install --progress-bar off -e .[all,dev]
+          name: Build hashwrap
+          command: python setup bdist_wheel
 
   32bit:
     docker:
