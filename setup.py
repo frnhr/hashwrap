@@ -78,7 +78,7 @@ requirements = [
     'toml',
 ]
 
-setup(name='hashwrap',
+setup(name='microquake-hashwrap',
       packages=['hashwrap'],
       # packages=setuptools.find_packages(),
       version='0.0.3',
