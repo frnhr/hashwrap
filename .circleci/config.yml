@@ -58,13 +58,13 @@ jobs:
           command: sudo pip install -U pip
       - run:
           name: install numpy
-          command: pip install --user numpy wheel
+          command: pip install --user numpy wheel | cat
       - run:
           name: install dependencies
-          command: pip install --user toml obspy
+          command: pip install --user toml obspy | cat
       - run:
           name: Build hashwrap
-          command: python setup bdist_wheel
+          command: python setup.py bdist_wheel | cat
 
   32bit:
     docker:
