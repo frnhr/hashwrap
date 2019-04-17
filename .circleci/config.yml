@@ -54,24 +54,21 @@ jobs:
       - run: *merge-check
       # - run: *apt-install
       - run:
-          name: ls
-          command: ls /opt/python/*
-      - run:
           name: Update pip
-          command: /opt/python/cp37-cp37mu/bin/pip install -U pip
+          command: /opt/python/cp37-cp37m/bin/pip install -U pip
       - run:
           name: install numpy
-          command: /opt/python/cp37-cp37mu/bin/pip install --user numpy wheel twine | cat
+          command: /opt/python/cp37-cp37m/bin/pip install --user numpy wheel twine | cat
       - run:
           name: install dependencies
-          command: /opt/python/cp37-cp37mu/bin/pip install --user toml obspy | cat
+          command: /opt/python/cp37-cp37m/bin/pip install --user toml obspy | cat
       - run:
           name: create source package
-          command: /opt/python/cp37-cp37mu/bin/python setup.py sdist | cat
+          command: /opt/python/cp37-cp37m/bin/python setup.py sdist | cat
 
       - run:
           name: Build hashwrap
-          command: /opt/python/cp37-cp37mu/bin/python setup.py bdist_wheel | cat
+          command: /opt/python/cp37-cp37m/bin/python setup.py bdist_wheel | cat
 
       - run:
           name: init .pypirc
