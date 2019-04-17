@@ -54,6 +54,9 @@ jobs:
       - run: *merge-check
       # - run: *apt-install
       - run:
+          name: ls
+          command: ls /opt/python/*
+      - run:
           name: Update pip
           command: /opt/python/cp37-cp37mu/bin/pip install -U pip
       - run:
