@@ -22,4 +22,5 @@ script:
   - echo -e "[pypi]" >> ~/.pypirc
   - echo -e "username = $PYPI_USER" >> ~/.pypirc
   - echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-  - /opt/python/cp37-cp37m/bin/twine upload wheelhouse/microquake*whl
+  - /opt/python/cp37-cp37m/bin/pip install --user twine | cat
+  - ~/.local/bin/twine upload wheelhouse/microquake*whl
