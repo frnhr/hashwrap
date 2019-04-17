@@ -72,7 +72,7 @@ jobs:
 
       - run:
           name: bdist
-          command: auditwheel repair dist/*
+          command: auditwheel repair dist/*.whl /tmp
 
       - run:
           name: init .pypirc
@@ -83,7 +83,7 @@ jobs:
 
       - run:
           name: upload to pypi
-          command: ~/.local/bin/twine upload dist/*
+          command: ~/.local/bin/twine upload tmp/*whl
 
 
   32bit:
