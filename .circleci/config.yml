@@ -89,14 +89,14 @@ jobs:
 workflows:
   version: 2
 
+  pip-install:
+    jobs:
+      - pip-install
+
   egg-info:
     jobs:
       - egg-info-36
       - egg-info-37
-
-  pip-install:
-    jobs:
-      - pip-install
 
   build-32:
     jobs:
