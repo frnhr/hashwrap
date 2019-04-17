@@ -57,8 +57,11 @@ jobs:
           name: Update pip
           command: pip install -U pip
       - run:
+          name: install numpy
+          command: pip install numpy
+      - run:
           name: install dependencies
-          command: pip install numpy toml obspy
+          command: pip install toml obspy
       - run:
           name: Install SunPy
           command: pip install --progress-bar off -e .[all,dev]
@@ -92,11 +95,6 @@ workflows:
   pip-install:
     jobs:
       - pip-install
-
-  egg-info:
-    jobs:
-      - egg-info-36
-      - egg-info-37
 
   build-32:
     jobs:
