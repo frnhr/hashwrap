@@ -15,6 +15,6 @@ done
 
 # Install packages and test
 for PYBIN in /opt/python/*/bin/; do
-    "${PYBIN}/pip" install hashwrap --no-index -f /io/wheelhouse
+    "${PYBIN}/pip" install microquake-hashwrap --no-index -f /io/wheelhouse
     (cd "$HOME"; "${PYBIN}/python" test)
 done
