@@ -1,41 +1,21 @@
-dist: xenial   # required for Python >= 3.7
-language: python
-python:
-  - "3.6"
-  - "3.7"
-  - "nightly"
-  - "pypy"
-  - "pypy3"
-sudo: true
-before_install:
-  - sudo apt-get install -y gfortran swig libfftw3-dev
-addons:
-  apt:
-    packages:
-      - rpm
-matrix:
-  allow_failures:
-    - python: nightly
-    - python: pypy
-    - python: pypy3
-install:
-  - bash ci/install.sh
-script:
-  - bash ci/script.sh
-after_success:
-  - bash ci/after_success.sh
-before_deploy:
-  - bash ci/before_deploy.sh
-deploy:
-  - provider: pypi
-    user: microquake
-    password:
-      secure: "YmTcLJ7O1v/Qtcj2wKNNq33r5hHZY44agEjRLjpuGEsoikmQZ1da31Yl4Ex+WcQcyIp7sdEQRAjqd4EqF9Gg5kqQ9MG76qd0Fmase9Ub6t43iHxIyRloqQQEqI3DZuWsnxJIlyddMeV8gZC318pqgVpHaUO4Wk3gHpvjvq+nRFqDfCWaxfqoS7eiakpMAlkjgwBw9mlVwuf2Ory89/DwraGQphz7LAZpGuWusevw8h4E15o6Pc4i/PUcACHQs4kNlc+K1a6+z/k4Ejq6FatsTLquOkscuSt/2N7DmR+oGL2dBwyLnLRDVqghhoqr7/oUu/wYtRX9FwKgjfLNEfthpTDx9EhYQt/voZaGwa7Hmp50JS4txF/44y1mq+n357kFo06sbb+VL/92ceMGfwIJQmazm8Q9w+J88uqy8pMAvCBM1QKbIEbyxaPJPk4N8ZDXVniacdWp35QVVYCUPOaaofMRfRYJTwcAeiC9nceyaEXL/4HK+TY3Z5Uj5BG+W+BAmarCsoZIrXPCQdkuF1nGHXwdy4DQvqRdyxalvCC3ohHEp4XycjuDqXHJfd3UiM/ZYD+ETQbBQN5Jsvs3SfFWZW75zmZKef2gsUkCCIPduyQgGPVGUubJOXasDHzDVN/tqA8aULhZ3VYr9VqFRE2eCYAnI/wLc9IDC1MzosfO65c="
-    distributions: sdist bdist_wheel
-    on:
-      branch: master
-      condition: "$TRAVIS_PYTHON_VERSION = 3.7"
-      tags: true
-
 notifications:
   email: false
+
+matrix:
+  include:
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
+           PRE_CMD=linux32
+
+install:
+  - docker pull $DOCKER_IMAGE
+
+script:
+  - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/ci/build-wheels.sh
+  - ls wheelhouse/
