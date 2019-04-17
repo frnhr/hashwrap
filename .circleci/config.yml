@@ -55,13 +55,13 @@ jobs:
       - run: *apt-install
       - run:
           name: Update pip
-          command: pip install -U pip
+          command: sudo pip install -U pip
       - run:
           name: install numpy
-          command: pip install numpy wheel
+          command: pip install --user numpy wheel
       - run:
           name: install dependencies
-          command: pip install toml obspy
+          command: pip install --user toml obspy
       - run:
           name: Build hashwrap
           command: python setup bdist_wheel
