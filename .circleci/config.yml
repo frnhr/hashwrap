@@ -19,9 +19,6 @@ tox-install: &tox-install
   name: Install Tox
   command: |
     pip install tox
-    pip install numpy
-    pip install toml
-    pip install obspy
 image-run: &image-tests
   name: Run image tests
   environment:
@@ -59,6 +56,9 @@ jobs:
       - run:
           name: Update pip
           command: pip install -U pip
+      - run:
+          name: install dependencies
+          command: pip install numpy toml obspy
       - run:
           name: Install SunPy
           command: pip install --progress-bar off -e .[all,dev]
