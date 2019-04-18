@@ -17,7 +17,7 @@ install:
   - docker pull $DOCKER_IMAGE
 
 script:
-  - sudo pip remove -y six
+  - sudo pip uninstall -y six
   - pip install --user twine
   - ~/.local/bin/twine upload wheelhouse/microquake*whl
   - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/ci/build-wheels.sh
