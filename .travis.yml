@@ -17,7 +17,7 @@ install:
   - docker pull $DOCKER_IMAGE
 
 script:
-  - pip install twine
+  - sudo pip install twine
   - twine upload wheelhouse/microquake*whl
   - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/ci/build-wheels.sh
   - ls wheelhouse/
