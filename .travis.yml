@@ -19,9 +19,9 @@ install:
 script:
   - sudo pip uninstall -y six
   - pip install --user twine
-  - ~/.local/bin/twine upload wheelhouse/microquake*whl
   - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/ci/build-wheels.sh
   - ls wheelhouse/
   - echo -e "[pypi]" >> ~/.pypirc
   - echo -e "username = $PYPI_USER" >> ~/.pypirc
   - echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+  - ~/.local/bin/twine upload wheelhouse/microquake*whl
