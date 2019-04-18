@@ -17,10 +17,10 @@ install:
   - docker pull $DOCKER_IMAGE
 
 script:
+  - pip install --user twine
   - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/ci/build-wheels.sh
   - ls wheelhouse/
   - echo -e "[pypi]" >> ~/.pypirc
   - echo -e "username = $PYPI_USER" >> ~/.pypirc
   - echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-  - /opt/python/cp37-cp37m/bin/pip install --user twine | cat
   - ~/.local/bin/twine upload wheelhouse/microquake*whl
